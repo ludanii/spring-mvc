@@ -17,7 +17,7 @@ public class LivroService {
     this.livroRepository = livroRepository;
   }
   // CRUD
-  public Livro createdlivro(Livro livro){
+  public Livro createLivro(Livro livro){
     return livroRepository.save(livro);
   }
   public Livro readLivro(Long id){
