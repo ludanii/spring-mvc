@@ -22,8 +22,8 @@ public class Livro {
     @DecimalMin(value = "0.99", message = "O preço deve ser no mínimo R$ 0.99")
     private BigDecimal preco;
     @Pattern(regexp = "^970\\d{7}$|^970\\d{10}$",
-    message = "ISPN fora do padrão")
-    private String ispn;
+    message = "ISBN fora do padrão")
+    private String isbn;
     private LocalDate dataPublicacao;
 
     public Long getId() {
@@ -74,12 +74,12 @@ public class Livro {
         this.preco = preco;
     }
 
-    public String getIspn() {
-        return ispn;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setIspn(String ispn) {
-        this.ispn = ispn;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public LocalDate getDataPublicacao() {

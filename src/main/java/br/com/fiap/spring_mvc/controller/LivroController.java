@@ -22,7 +22,7 @@ public class LivroController {
   @Autowired
   LivroService livroService;
 
-  @GetMapping("/livro")
+  @GetMapping("/lista")
   public String listarLivros(Model model) {
     List<Livro> livros = livroService.readLivros();
     model.addAttribute("listaLivros", livros);
