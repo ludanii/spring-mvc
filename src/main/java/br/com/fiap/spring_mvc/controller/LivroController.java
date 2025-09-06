@@ -19,52 +19,52 @@ import java.util.List;
 @Controller
 @RequestMapping("/livros")
 public class LivroController {
-  @Autowired
-  LivroService livroService;
+    @Autowired
+    LivroService livroService;
 
-  @GetMapping("/lista")
-  public String listarLivros(Model model) {
-    List<Livro> livros = livroService.readLivros();
-    model.addAttribute("listaLivros", livros);
-    return "livroLista";
-  }
-
-  @GetMapping("/cadastro")
-  public String cadastroLivro(Model model) {
-    model.addAttribute("livro", new Livro());
-    model.addAttribute("categoriaLista", Arrays.asList(Categoria.values()));
-    return "livroCadastro";
-  }
-
-  @PostMapping("/cadastrar")
-  public String cadastrarLivro(@Valid Livro livro, BindingResult result, Model model) {
-    if (result.hasErrors()) {
-      model.addAttribute("livro", livro);
-      model.addAttribute("categoriaLista", Arrays.asList(Categoria.values()));
-      return "livroCadastro";
+    @GetMapping("/lista")
+    public String listarLivros(Model model) {
+        List<Livro> livros = livroService.readLivros();
+        model.addAttribute("listaLivros", livros);
+        return "livroLista";
     }
-    if (livro.getId() == null) {
-      livroService.createLivro(livro);
-    } else {
-      livroService.updateLivro(livro);
+
+    @GetMapping("/cadastro")
+    public String cadastroLivro(Model model) {
+        model.addAttribute("livro", new Livro());
+        model.addAttribute("categoriaLista", Arrays.asList(Categoria.values()));
+        return "livroCadastro";
     }
-    return listarLivros(model);
-  }
 
-  @GetMapping("/cadastro/{id}")
-  public String cadastroLivro(@PathVariable Long id, Model model) {
-    Livro livro = livroService.readLivro(id);
-    if (livro == null) {
-      listarLivros(model);
-    }  
-    model.addAttribute("livro", livro);
-    model.addAttribute("categoriaLista", Arrays.asList(Categoria.values()));
-    return "livroCadastro";
-  }
+    @PostMapping("/cadastrar")
+    public String cadastrarLivro(@Valid Livro livro, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("livro", livro);
+            model.addAttribute("categoriaLista", Arrays.asList(Categoria.values()));
+            return "livroCadastro";
+        }
+        if (livro.getId() == null) {
+            livroService.createLivro(livro);
+        } else {
+            livroService.updateLivro(livro);
+        }
+        return listarLivros(model);
+    }
 
-  @GetMapping("/deletar/{id}")
-  public String deletarLivro(@PathVariable Long id, Model model) {
-    livroService.deleteLivro(id);
-    return listarLivros(model);
-  }
+    @GetMapping("/cadastro/{id}")
+    public String cadastroLivro(@PathVariable Long id, Model model) {
+        Livro livro = livroService.readLivro(id);
+        if (livro == null) {
+            listarLivros(model);
+        }
+        model.addAttribute("livro", livro);
+        model.addAttribute("categoriaLista", Arrays.asList(Categoria.values()));
+        return "livroCadastro";
+    }
+
+    @GetMapping("/deletar/{id}")
+    public String deletarLivro(@PathVariable Long id, Model model) {
+        livroService.deleteLivro(id);
+        return listarLivros(model);
+    }
 }
